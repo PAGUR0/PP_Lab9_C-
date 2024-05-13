@@ -25,12 +25,12 @@ public class Garage
         cars.Add(car);
     }
 
-
-    public void WashAllCars(Washer washer)
+    public delegate void WashCar(Car car);
+    public void WashAllCars(WashCar washCar)
     {
         foreach (var car in cars)
         {
-            washer.Wash(car);
+            washCar(car);
         }
     }
 }
@@ -55,6 +55,8 @@ class Program
         garage.Park(car2);
 
         Washer washer = new Washer();
-        garage.WashAllCars(washer);
+        
+        Garage.WashCar washCar = washer.Wash;
+        garage.WashAllCars(washCar);
     }
 }
